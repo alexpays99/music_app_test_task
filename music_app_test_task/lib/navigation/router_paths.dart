@@ -1,4 +1,7 @@
 abstract class RoutePaths {
-  static const imageListScreen = '/';
-  static const imageInfoScreen = 'image_info_screen';
+  static const root = '/';
+  static const home = '/home';
+  static const artistInfo = 'artistInfo';
+  static const favourite = '/favourite';
+  static const favouriteInfo = 'favouriteInfo';
 }

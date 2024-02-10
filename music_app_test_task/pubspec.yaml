@@ -21,6 +21,7 @@ dependencies:
   hive: ^2.2.3
   json_annotation: ^4.8.1
   responsive_sizer: ^3.3.0+1
+  path_provider: ^2.1.2
 
 dev_dependencies:
   flutter_test:

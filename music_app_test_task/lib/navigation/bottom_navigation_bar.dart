@@ -39,7 +39,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
         unselectedFontSize: UIConstants.unselectedFontSize,
         showSelectedLabels: true,
         showUnselectedLabels: true,
-        type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.shifting,
         backgroundColor: AppColors.scaffoldColor,
         onTap: _onTap,
         items: [
