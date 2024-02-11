@@ -5,6 +5,8 @@ import 'package:music_app_test_task/feature/home/domain/entities/artist_base_inf
 
 import '../../../../core/domain/entities/failure.dart';
 import '../models/artist_base_info/artist_base_info.dart';
+import '../models/artist_list_track/artist_list_track.dart';
+import '../models/artist_list_track/datum.dart';
 
 class HttpService {
   HttpService({required this.dio});
@@ -34,19 +36,20 @@ class HttpService {
     }
   }
 
-  // Future<Either<Failure, List<ArtistBaseInfoEntity>>> fetchArtistTrackList(
-  //     String url) async {
-  //   try {
-  //     final response = await dio.get(url);
-  //     final json = response.data as Map<String, dynamic>;
-  //     if (response.statusCode == 200) {
-  //       final track = ArtistBaseInfo.fromJson(json);
-  //       artists.add(artist.entity);
-  //     }
-
-  //     return right(artists);
-  //   } catch (e) {
-  //     return left(throw Exception(e));
-  //   }
-  // }
+  Future<Either<Failure, List<Datum>>> fetchArtistTrackList(
+      {required String url}) async {
+    try {
+      final response = await dio.get(url);
+      final json = response.data as Map<String, dynamic>;
+      List<Datum>? data = [];
+      if (response.statusCode == 200) {
+        final artistListTrack = ArtistListTrack.fromJson(json);
+        data = artistListTrack.data?.map((data) => data).toList() ?? [];
+        return right(data);
+      }
+      return right(data);
+    } catch (e) {
+      return left(throw Exception(e));
+    }
+  }
 }

@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:music_app_test_task/feature/home/presentation/cubit/artist_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:music_app_test_task/core/injector.dart' as di;
+import 'package:music_app_test_task/feature/home/presentation/widgets/artist_widget.dart';
 
-import '../../../../utils/ui_constants.dart';
 import '../../data/models/artist_list_state_model.dart';
 
 class ArtistList extends StatefulWidget {
@@ -19,6 +17,7 @@ class ArtistList extends StatefulWidget {
 
 class _ArtistListState extends State<ArtistList> {
   late ArtistCubit cubit;
+
   @override
   void initState() {
     super.initState();
@@ -38,30 +37,9 @@ class _ArtistListState extends State<ArtistList> {
           ListState.loaded => ListView.builder(
               itemCount: artistList?.value?.length,
               itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  leading: artistList?.value?[index].pictureSmall != null &&
-                          artistList!.value![index].pictureSmall!.isNotEmpty &&
-                          artistList.value?[index].pictureSmall != ''
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                              UIConstants.photoInfoCardBorderRadius),
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                artistList.value?[index].pictureSmall ?? '',
-                            fit: BoxFit.cover,
-                            height: 50,
-                            width: 50,
-                          ),
-                        )
-                      : ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                              UIConstants.photoInfoCardBorderRadius),
-                          child: Center(
-                            child:
-                                Text("${artistList?.value?[index].name?[0]}"),
-                          ),
-                        ),
-                  title: Text("${artistList?.value?[index].name}"),
+                return Artist(
+                  artistList: artistList,
+                  index: index,
                 );
               },
             ),

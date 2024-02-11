@@ -7,6 +7,8 @@ part 'artist_list_track.g.dart';
 
 @freezed
 class ArtistListTrack with _$ArtistListTrack {
+  const ArtistListTrack._();
+
   factory ArtistListTrack({
     List<Datum>? data,
     int? total,

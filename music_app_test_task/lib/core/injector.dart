@@ -11,6 +11,7 @@ import '../feature/favourite/data/services/hive_service.dart';
 import '../feature/home/data/remote_datasource/remote_datasource.dart';
 import '../feature/home/data/repositories/album_resository_impl.dart';
 import '../feature/home/data/services/http_service.dart';
+import '../feature/home/domain/use_cases/load_artist_tracks.dart';
 import '../navigation/go_rounter.dart';
 
 GetIt getIt = GetIt.instance;
@@ -21,12 +22,15 @@ abstract class InjectionContainer {
     getIt.registerLazySingleton<Dio>(() => Dio());
     // getIt.registerLazySingleton<Connectivity>(() => Connectivity());
 
-    // Providers
+    // Use cases
     getIt.registerLazySingleton(
       () => LoadArtistsUseCase(albumRepository: getIt()),
     );
     getIt.registerLazySingleton(
       () => AddSongToFavouriteUseCase(albumRepository: getIt()),
+    );
+    getIt.registerLazySingleton(
+      () => LoadArtistTracksUseCase(albumRepository: getIt()),
     );
 
     // Repositories
@@ -50,7 +54,7 @@ abstract class InjectionContainer {
     );
 
     // Blocs and Cubits
-    getIt.registerLazySingleton(() => ArtistCubit(getIt()));
+    getIt.registerLazySingleton(() => ArtistCubit(getIt(), getIt()));
     // getIt.registerLazySingleton(() => IngredientsListBloc());
     // getIt.registerLazySingleton(() => NetworkCubit());
     // getIt.registerLazySingleton(() => SavedRecipesListBloc());

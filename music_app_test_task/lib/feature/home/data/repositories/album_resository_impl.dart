@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:music_app_test_task/feature/home/data/models/artist_list_track/datum.dart';
 
 import '../../../../core/domain/entities/failure.dart';
 import '../../domain/entities/artist_base_info_entity.dart';
@@ -13,5 +14,11 @@ class AlbumRepositoryImpl implements AlbumRepository {
   @override
   Future<Either<Failure, List<ArtistBaseInfoEntity>>> fetchArtists() async {
     return await _remoteDataSource.fetchArtists();
+  }
+
+  @override
+  Future<Either<Failure, List<Datum>>> fetchArtistTrackList(
+      {required String url}) async {
+    return await _remoteDataSource.fetchArtistTrackList(url: url);
   }
 }
