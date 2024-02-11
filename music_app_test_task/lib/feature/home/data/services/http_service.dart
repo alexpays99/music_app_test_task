@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
+import 'package:music_app_test_task/feature/home/domain/entities/artist_base_info_entity.dart';
 
 import '../../../../core/domain/entities/failure.dart';
+import '../models/artist_base_info/artist_base_info.dart';
 
 class HttpService {
   HttpService({required this.dio});
@@ -10,27 +12,41 @@ class HttpService {
   final Dio dio;
   final logger = Logger();
 
-  Future<Either<Failure, List<Map<String, dynamic>>>> fetchArtists() async {
+  Future<Either<Failure, List<ArtistBaseInfoEntity>>> fetchArtists() async {
     try {
       final baseUrl = const String.fromEnvironment("BASE_URL").toString();
-      final photos = const String.fromEnvironment("PHOTOS").toString();
-      final clientId = const String.fromEnvironment('CLIENT_ID').toString();
-      final accessKey = const String.fromEnvironment('ACCESS_KEY').toString();
-      final endpoint = '$baseUrl$photos$clientId$accessKey';
-      final response = await dio.get(endpoint);
+      final artistEndpoint = const String.fromEnvironment("ARTIST").toString();
+      late Response response;
+      List<ArtistBaseInfoEntity> artists = [];
 
-      if (response.statusCode == 200) {
-        final parsed = response.data as List<dynamic>;
-        final photosTargetInfo = [
-          {'S': 's'}
-        ];
-        //parsed.map((e) => UnsplashPhotoResponce.fromJson(e)).toList();
-
-        return right(photosTargetInfo);
+      for (int i = 1; i < 10; i++) {
+        response = await dio.get('$baseUrl$artistEndpoint$i');
+        final json = response.data as Map<String, dynamic>;
+        if (response.statusCode == 200) {
+          final artist = ArtistBaseInfo.fromJson(json);
+          artists.add(artist.entity);
+        }
       }
-      return right([]);
+
+      return right(artists);
     } catch (e) {
       return left(throw Exception(e));
     }
   }
+
+  // Future<Either<Failure, List<ArtistBaseInfoEntity>>> fetchArtistTrackList(
+  //     String url) async {
+  //   try {
+  //     final response = await dio.get(url);
+  //     final json = response.data as Map<String, dynamic>;
+  //     if (response.statusCode == 200) {
+  //       final track = ArtistBaseInfo.fromJson(json);
+  //       artists.add(artist.entity);
+  //     }
+
+  //     return right(artists);
+  //   } catch (e) {
+  //     return left(throw Exception(e));
+  //   }
+  // }
 }

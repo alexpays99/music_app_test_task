@@ -1,1 +1,1 @@
-class HiveSerice {}
+class HiveService {}

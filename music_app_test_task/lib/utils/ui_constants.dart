@@ -67,6 +67,10 @@ class UIConstants {
   static const double nutritionalSupplementsItemHorisontalPadding = 24;
   static const double nutritionalSupplementsItemVerticalPadding = 8;
 
+  static const double photoInfoCardBorderRadius = 50.0;
+
+  static const int defaultListLength = 0;
+
   static const String ingredientScreenTitle = 'Choose ingredients';
   static const String noConnectionTitle = 'No internet connection';
   static const String noConnectionDescription =
@@ -75,4 +79,5 @@ class UIConstants {
 
   static String homeTab = "Home";
   static String myRecipesTab = "Favourite";
+  static String errorMessage = "Unable to load data. Please try again!";
 }
