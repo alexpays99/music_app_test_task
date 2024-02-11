@@ -13,7 +13,7 @@ class Artist extends StatelessWidget {
     required this.index,
   });
 
-  final ArtistListStateModel? artistList;
+  final ArtistListStateModel artistList;
   final int index;
 
   @override
@@ -22,31 +22,23 @@ class Artist extends StatelessWidget {
       onTap: () {
         context.go(
           '${RoutePaths.home}/${RoutePaths.artistInfo}',
-          extra: artistList?.value?[index],
+          extra: artistList.value?[index],
         );
       },
       child: ListTile(
-        leading: artistList?.value?[index].pictureSmall != null &&
-                artistList!.value![index].pictureSmall!.isNotEmpty &&
-                artistList?.value?[index].pictureSmall != ''
-            ? ClipRRect(
-                borderRadius: BorderRadius.circular(
-                    UIConstants.photoInfoCardBorderRadius),
-                child: CachedNetworkImage(
-                  imageUrl: artistList?.value?[index].pictureSmall ?? '',
-                  fit: BoxFit.cover,
-                  height: 50,
-                  width: 50,
-                ),
-              )
-            : ClipRRect(
-                borderRadius: BorderRadius.circular(
-                    UIConstants.photoInfoCardBorderRadius),
-                child: Center(
-                  child: Text("${artistList?.value?[index].name?[0]}"),
-                ),
-              ),
-        title: Text("${artistList?.value?[index].name}"),
+        leading: ClipRRect(
+          borderRadius:
+              BorderRadius.circular(UIConstants.photoInfoCardBorderRadius),
+          child: CachedNetworkImage(
+            imageUrl: artistList.value?[index].pictureSmall ?? '',
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+            fit: BoxFit.cover,
+            height: 50,
+            width: 50,
+          ),
+        ),
+        title: Text("${artistList.value?[index].name}"),
       ),
     );
   }

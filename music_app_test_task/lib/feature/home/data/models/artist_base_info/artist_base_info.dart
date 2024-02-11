@@ -9,19 +9,19 @@ class ArtistBaseInfo with _$ArtistBaseInfo {
   const ArtistBaseInfo._();
 
   const factory ArtistBaseInfo({
-    int? id,
+    @Default(0) int id,
     String? name,
     String? link,
     String? share,
-    String? picture,
-    @JsonKey(name: 'picture_small') String? pictureSmall,
-    @JsonKey(name: 'picture_medium') String? pictureMedium,
-    @JsonKey(name: 'picture_big') String? pictureBig,
-    @JsonKey(name: 'picture_xl') String? pictureXl,
+    @Default('') String picture,
+    @Default('') @JsonKey(name: 'picture_small') String pictureSmall,
+    @Default('') @JsonKey(name: 'picture_medium') String pictureMedium,
+    @Default('') @JsonKey(name: 'picture_big') String pictureBig,
+    @Default('') @JsonKey(name: 'picture_xl') String pictureXl,
     @JsonKey(name: 'nb_album') int? nbAlbum,
     @JsonKey(name: 'nb_fan') int? nbFan,
     bool? radio,
-    String? tracklist,
+    @Default('') String tracklist,
     String? type,
   }) = _ArtistBaseInfo;
 

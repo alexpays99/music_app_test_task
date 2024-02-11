@@ -5,6 +5,7 @@ import 'package:music_app_test_task/feature/home/domain/repositories/album_repos
 import 'package:music_app_test_task/feature/home/domain/use_cases/add_song_to_favourite.dart';
 import 'package:music_app_test_task/feature/home/domain/use_cases/load_artists.dart';
 import 'package:music_app_test_task/feature/home/presentation/cubit/artist_cubit.dart';
+import 'package:music_app_test_task/feature/home/presentation/cubit/tracks_cubit.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 import '../feature/favourite/data/services/hive_service.dart';
@@ -54,11 +55,8 @@ abstract class InjectionContainer {
     );
 
     // Blocs and Cubits
-    getIt.registerLazySingleton(() => ArtistCubit(getIt(), getIt()));
-    // getIt.registerLazySingleton(() => IngredientsListBloc());
-    // getIt.registerLazySingleton(() => NetworkCubit());
-    // getIt.registerLazySingleton(() => SavedRecipesListBloc());
-    // getIt.registerLazySingleton(() => DietsListBloc());
+    getIt.registerLazySingleton(() => ArtistCubit(getIt()));
+    getIt.registerLazySingleton(() => TracksCubit(getIt()));
 
     // Go Router
     getIt.registerFactory(() => GoRouterNavigation());

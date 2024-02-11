@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music_app_test_task/feature/home/presentation/cubit/artist_cubit.dart';
+import 'package:music_app_test_task/feature/home/data/models/track_list_state_model.dart';
 import 'package:music_app_test_task/core/injector.dart' as di;
+import 'package:music_app_test_task/feature/home/presentation/cubit/tracks_cubit.dart';
 
-import '../data/models/artist_list_state_model.dart';
 import '../domain/entities/artist_base_info_entity.dart';
 
 class ArtistInfoPage extends StatefulWidget {
@@ -18,17 +18,17 @@ class ArtistInfoPage extends StatefulWidget {
 }
 
 class _ArtistInfoPageState extends State<ArtistInfoPage> {
-  late ArtistCubit cubit;
+  late TracksCubit cubit;
 
   @override
   void initState() {
     super.initState();
-    // cubit = di.getIt<ArtistCubit>()
-    //   ..fetchArtistTrackList(widget.artist.tracklist!);
   }
 
   @override
   Widget build(BuildContext context) {
+    cubit = di.getIt<TracksCubit>()
+      ..fetchArtistTrackList(widget.artist.tracklist);
     return Scaffold(
       appBar: AppBar(
         title: Text('${widget.artist.name}'),
@@ -37,7 +37,7 @@ class _ArtistInfoPageState extends State<ArtistInfoPage> {
         child: Column(
           children: [
             CachedNetworkImage(
-              imageUrl: widget.artist.pictureBig ?? '',
+              imageUrl: widget.artist.pictureBig,
               fit: BoxFit.cover,
               width: MediaQuery.sizeOf(context).width,
               height: MediaQuery.sizeOf(context).width,
@@ -45,27 +45,32 @@ class _ArtistInfoPageState extends State<ArtistInfoPage> {
             SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
             Text("${widget.artist.name}'s tracks:"),
             SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
-            BlocBuilder<ArtistCubit, ArtistState>(
+            BlocBuilder<TracksCubit, TracksState>(
               builder: (context, state) {
-                final trackList = state.artistListStateModel;
+                final trackList = state.trackListStateModel;
                 return switch (trackList?.trackListState) {
                   TrackListState.initial => const SizedBox.shrink(),
                   TrackListState.loading => const Center(
                       child: CupertinoActivityIndicator(),
                     ),
-                  TrackListState.loaded => const SizedBox.shrink(),
-                  // ListView.builder(
-                  //     itemCount: trackList?.value?.length,
-                  //     itemBuilder: (BuildContext context, int index) {
-                  //       return ListTile(
-                  //         leading: Text(
-                  //             trackList?.trackListData?[index].id.toString() ??
-                  //                 ''),
-                  //         title: Text(
-                  //             trackList?.trackListData?[index].title ?? ''),
-                  //       );
-                  //     },
-                  //   ),
+                  TrackListState.loaded => ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ScrollPhysics(),
+                      itemCount: trackList?.trackListData?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          leading: Text(
+                              trackList?.trackListData?[index].id.toString() ??
+                                  ''),
+                          title: Text(
+                              trackList?.trackListData?[index].title ?? ''),
+                          trailing: Text(trackList
+                                  ?.trackListData?[index].duration
+                                  .toString() ??
+                              ''),
+                        );
+                      },
+                    ),
                   TrackListState.error => Center(
                       child: Text(trackList?.message ?? ''),
                     ),

@@ -6,26 +6,14 @@ import 'package:music_app_test_task/feature/home/presentation/widgets/artist_wid
 
 import '../../data/models/artist_list_state_model.dart';
 
-class ArtistList extends StatefulWidget {
+class ArtistList extends StatelessWidget {
   const ArtistList({
     super.key,
   });
 
   @override
-  State<ArtistList> createState() => _ArtistListState();
-}
-
-class _ArtistListState extends State<ArtistList> {
-  late ArtistCubit cubit;
-
-  @override
-  void initState() {
-    super.initState();
-    cubit = di.getIt<ArtistCubit>()..fetchArtists();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    di.getIt<ArtistCubit>().fetchArtists();
     return BlocBuilder<ArtistCubit, ArtistState>(
       builder: (context, state) {
         final artistList = state.artistListStateModel;
@@ -38,7 +26,7 @@ class _ArtistListState extends State<ArtistList> {
               itemCount: artistList?.value?.length,
               itemBuilder: (BuildContext context, int index) {
                 return Artist(
-                  artistList: artistList,
+                  artistList: artistList!,
                   index: index,
                 );
               },

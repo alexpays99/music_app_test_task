@@ -1,10 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:logger/logger.dart';
 
 import '../../../../utils/ui_constants.dart';
 import '../../data/models/artist_list_state_model.dart';
-import '../../domain/use_cases/load_artist_tracks.dart';
+import '../../domain/entities/artist_base_info_entity.dart';
 import '../../domain/use_cases/load_artists.dart';
 
 part 'artist_state.dart';
@@ -13,21 +12,18 @@ part 'artist_cubit.freezed.dart';
 class ArtistCubit extends Cubit<ArtistState> {
   ArtistCubit(
     this._loadArtistsUsecase,
-    this._loadArtistTracksUseCase,
   ) : super(
           ArtistState(
             artistListStateModel: ArtistListStateModel(
               value: [],
               artistListState: ListState.initial,
-              trackListData: [],
-              trackListState: TrackListState.initial,
             ),
           ),
         );
 
   final LoadArtistsUseCase _loadArtistsUsecase;
-  final LoadArtistTracksUseCase _loadArtistTracksUseCase;
-  final logger = Logger();
+
+  List<ArtistBaseInfoEntity> newArtists = [];
 
   Future<void> fetchArtists() async {
     emit(
@@ -44,7 +40,6 @@ class ArtistCubit extends Cubit<ArtistState> {
         emit(
           state.copyWith(
             artistListStateModel: ArtistListStateModel(
-              value: null,
               artistListState: ListState.error,
               message: UIConstants.errorMessage,
             ),
@@ -52,45 +47,11 @@ class ArtistCubit extends Cubit<ArtistState> {
         ),
       },
       (r) => {
+        newArtists = List.from(r),
         emit(
           state.copyWith(
             artistListStateModel: ArtistListStateModel(
-              value: r,
-              artistListState: ListState.loaded,
-            ),
-          ),
-        ),
-      },
-    );
-  }
-
-  Future<void> fetchArtistTrackList(String url) async {
-    emit(
-      state.copyWith(
-        artistListStateModel: ArtistListStateModel(
-          trackListData: null,
-          trackListState: TrackListState.loading,
-        ),
-      ),
-    );
-    final tracks = await _loadArtistTracksUseCase(url);
-    tracks.fold(
-      (l) => {
-        emit(
-          state.copyWith(
-            artistListStateModel: ArtistListStateModel(
-              trackListData: null,
-              artistListState: ListState.error,
-              message: UIConstants.errorMessage,
-            ),
-          ),
-        ),
-      },
-      (r) => {
-        emit(
-          state.copyWith(
-            artistListStateModel: ArtistListStateModel(
-              trackListData: r,
+              value: newArtists, //r,
               artistListState: ListState.loaded,
             ),
           ),

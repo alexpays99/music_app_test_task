@@ -20,14 +20,14 @@ class ArtistBaseInfoEntity {
   final String? name;
   final String? link;
   final String? share;
-  final String? picture;
-  final String? pictureSmall;
-  final String? pictureMedium;
-  final String? pictureBig;
-  final String? pictureXl;
+  final String picture;
+  final String pictureSmall;
+  final String pictureMedium;
+  final String pictureBig;
+  final String pictureXl;
   final int? nbAlbum;
   final int? nbFan;
   final bool? radio;
-  final String? tracklist;
+  final String tracklist;
   final String? type;
 }
