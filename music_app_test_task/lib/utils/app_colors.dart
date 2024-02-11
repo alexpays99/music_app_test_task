@@ -11,7 +11,7 @@ abstract class AppColors {
   static const Color selectedBorderColor = Colors.white;
   static const Color unselectedBorderColor = Colors.white24;
   static const Color selectedRecipeColor = Colors.red;
-  static const Color unselectedRecipeColor = Colors.white24;
+  static const Color unselectedRecipeColor = Color.fromARGB(60, 135, 135, 135);
 
   static const Color textFieldColor = Color(0xFF3C3E44);
 

@@ -6,6 +6,8 @@ import 'package:music_app_test_task/feature/home/data/models/track_list_state_mo
 import 'package:music_app_test_task/core/injector.dart' as di;
 import 'package:music_app_test_task/feature/home/presentation/cubit/tracks_cubit.dart';
 
+import '../../../utils/app_colors.dart';
+import '../../../utils/ui_constants.dart';
 import '../domain/entities/artist_base_info_entity.dart';
 
 class ArtistInfoPage extends StatefulWidget {
@@ -58,16 +60,56 @@ class _ArtistInfoPageState extends State<ArtistInfoPage> {
                       physics: const ScrollPhysics(),
                       itemCount: trackList?.trackListData?.length,
                       itemBuilder: (BuildContext context, int index) {
+                        final id =
+                            trackList?.trackListData?[index].id.toString();
+                        final title =
+                            trackList?.trackListData?[index].title.toString();
+                        final duration = trackList?.trackListData?[index]
+                            .duration?.toMinutesRepresentation;
                         return ListTile(
                           leading: Text(
-                              trackList?.trackListData?[index].id.toString() ??
-                                  ''),
+                            id ?? '',
+                            style: const TextStyle(
+                              fontSize: 10,
+                            ),
+                          ),
                           title: Text(
-                              trackList?.trackListData?[index].title ?? ''),
-                          trailing: Text(trackList
-                                  ?.trackListData?[index].duration
-                                  .toString() ??
-                              ''),
+                            title ?? '',
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                          subtitle: Text(duration ?? ''),
+                          trailing: IconButton(
+                            onPressed: () {
+                              // setState(() {
+                              //   _isFavourite = !_isFavourite;
+                              // });
+                              // final recipeModel =
+                              //     RecipeModel.fromUserEntity(widget.recipe);
+                              // if (_isFavourite) {
+                              //   getIt
+                              //       .get<AddRecipeToFavouriteProvider>()
+                              //       .call(recipeModel);
+                              // } else {
+                              //   getIt
+                              //       .get<DeleteRecipeFromFavouriteProvider>()
+                              //       .call(widget.index);
+                              // }
+                            },
+                            icon: const Icon(
+                              Icons.favorite_outline,
+                              color: AppColors.unselectedRecipeColor,
+                              size: UIConstants.addToFavouriteIconSize,
+                              // _isFavourite
+                              //     ? Icons.favorite
+                              //     : Icons.favorite_outline,
+                              // color: _isFavourite
+                              //     ? AppColors.selectedRecipeColor
+                              //     : AppColors.unselectedRecipeColor,
+                              // size: UIConstants.addToFavouriteIconSize,
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -82,5 +124,20 @@ class _ArtistInfoPageState extends State<ArtistInfoPage> {
         ),
       ),
     );
+  }
+}
+
+extension IntExtension on int {
+  // This getter returns a string representation of minutes from seconds
+  String get toMinutesRepresentation {
+    // Divide the int value by 60 and round down to get the minutes
+    int minutes = this ~/ 60;
+    // Get the remaining seconds by using the modulo operator
+    int remainingSeconds = this % 60;
+    // Add a leading zero to the seconds if they are less than 10
+    String secondsString =
+        remainingSeconds < 10 ? "0$remainingSeconds" : "$remainingSeconds";
+    // Return the formatted string with minutes and seconds
+    return "$minutes:$secondsString minutes";
   }
 }
