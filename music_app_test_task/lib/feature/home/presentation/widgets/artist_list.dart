@@ -44,19 +44,19 @@ class _ArtistListState extends State<ArtistList> {
     return BlocBuilder<ArtistCubit, ArtistState>(
       builder: (context, state) {
         final artistList = state.artistListStateModel;
-        final newArtists = _artistCubit.newArtists;
+        final newArtistsList = _artistCubit.newArtists;
         switch (artistList?.artistListState) {
           case ListState.initial:
             return const SizedBox.shrink();
           case ListState.loading:
-            return newArtists == [] || newArtists.isEmpty
+            return newArtistsList == [] || newArtistsList.isEmpty
                 ? const Center(child: CircularProgressIndicator())
                 : ListView.builder(
                     controller: _scrollController,
-                    itemCount: artistList?.value?.length,
+                    itemCount: newArtistsList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Artist(
-                        artistList: artistList!,
+                        artist: newArtistsList[index],
                         index: index,
                       );
                     },
@@ -64,10 +64,10 @@ class _ArtistListState extends State<ArtistList> {
           case ListState.loaded:
             return ListView.builder(
               controller: _scrollController,
-              itemCount: artistList?.value?.length,
+              itemCount: newArtistsList.length,
               itemBuilder: (BuildContext context, int index) {
                 return Artist(
-                  artistList: artistList!,
+                  artist: newArtistsList[index],
                   index: index,
                 );
               },

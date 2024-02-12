@@ -4,33 +4,35 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../navigation/router_paths.dart';
 import '../../../../utils/ui_constants.dart';
-import '../../data/models/artist_list_state_model.dart';
+import '../../domain/entities/artist_base_info_entity.dart';
 
 class Artist extends StatelessWidget {
   const Artist({
     super.key,
-    required this.artistList,
+    required this.artist,
     required this.index,
   });
 
-  final ArtistListStateModel artistList;
+  final ArtistBaseInfoEntity artist;
   final int index;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context.go(
-          '${RoutePaths.home}/${RoutePaths.artistInfo}',
-          extra: artistList.value?[index],
-        );
-      },
+      onTap: artist.pictureSmall.isEmpty
+          ? null
+          : () {
+              context.go(
+                '${RoutePaths.home}/${RoutePaths.artistInfo}',
+                extra: artist,
+              );
+            },
       child: ListTile(
         leading: ClipRRect(
           borderRadius:
               BorderRadius.circular(UIConstants.photoInfoCardBorderRadius),
           child: CachedNetworkImage(
-            imageUrl: artistList.value?[index].pictureSmall ?? '',
+            imageUrl: artist.pictureSmall,
             placeholder: (context, url) => const CircularProgressIndicator(),
             errorWidget: (context, url, error) =>
                 const CircularProgressIndicator(),
@@ -39,7 +41,7 @@ class Artist extends StatelessWidget {
             width: 50,
           ),
         ),
-        title: Text(artistList.value?[index].name ?? ''),
+        title: Text(artist.name ?? ''),
       ),
     );
   }
