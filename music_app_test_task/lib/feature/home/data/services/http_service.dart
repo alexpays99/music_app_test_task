@@ -14,28 +14,6 @@ class HttpService {
   final Dio dio;
   final logger = Logger();
 
-  // Future<Either<Failure, List<ArtistBaseInfoEntity>>> fetchArtists() async {
-  //   try {
-  //     final baseUrl = const String.fromEnvironment("BASE_URL").toString();
-  //     final artistEndpoint = const String.fromEnvironment("ARTIST").toString();
-  //     late Response response;
-  //     List<ArtistBaseInfoEntity> artists = [];
-
-  //     for (int i = 0; i < 10; i++) {
-  //       response = await dio.get('$baseUrl$artistEndpoint$i');
-  //       final json = response.data as Map<String, dynamic>;
-  //       if (response.statusCode == 200) {
-  //         final artist = ArtistBaseInfo.fromJson(json);
-  //         artists.add(artist.entity);
-  //       }
-  //     }
-
-  //     return right(artists);
-  //   } catch (e) {
-  //     return left(throw Exception(e));
-  //   }
-  // }
-
   Future<Either<Failure, List<ArtistBaseInfoEntity>>> fetchArtists(
       int startIndex) async {
     try {
@@ -44,7 +22,6 @@ class HttpService {
       late Response response;
       List<ArtistBaseInfoEntity> artists = [];
 
-      // Измените условие цикла для использования startIndex и добавьте шаг пагинации
       for (int i = startIndex; i < startIndex + 10; i++) {
         response = await dio.get('$baseUrl$artistEndpoint$i');
         final json = response.data as Map<String, dynamic>;
