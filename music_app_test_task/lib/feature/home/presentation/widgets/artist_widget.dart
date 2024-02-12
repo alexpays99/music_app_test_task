@@ -32,13 +32,14 @@ class Artist extends StatelessWidget {
           child: CachedNetworkImage(
             imageUrl: artistList.value?[index].pictureSmall ?? '',
             placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+            errorWidget: (context, url, error) =>
+                const CircularProgressIndicator(),
             fit: BoxFit.cover,
             height: 50,
             width: 50,
           ),
         ),
-        title: Text("${artistList.value?[index].name}"),
+        title: Text(artistList.value?[index].name ?? ''),
       ),
     );
   }

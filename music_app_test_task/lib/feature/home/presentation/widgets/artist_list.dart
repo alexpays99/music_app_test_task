@@ -44,12 +44,25 @@ class _ArtistListState extends State<ArtistList> {
     return BlocBuilder<ArtistCubit, ArtistState>(
       builder: (context, state) {
         final artistList = state.artistListStateModel;
-        return switch (artistList?.artistListState) {
-          ListState.initial => const SizedBox.shrink(),
-          ListState.loading => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          ListState.loaded => ListView.builder(
+        final newArtists = _artistCubit.newArtists;
+        switch (artistList?.artistListState) {
+          case ListState.initial:
+            return const SizedBox.shrink();
+          case ListState.loading:
+            return newArtists == [] || newArtists.isEmpty
+                ? const Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    controller: _scrollController,
+                    itemCount: artistList?.value?.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Artist(
+                        artistList: artistList!,
+                        index: index,
+                      );
+                    },
+                  );
+          case ListState.loaded:
+            return ListView.builder(
               controller: _scrollController,
               itemCount: artistList?.value?.length,
               itemBuilder: (BuildContext context, int index) {
@@ -58,12 +71,34 @@ class _ArtistListState extends State<ArtistList> {
                   index: index,
                 );
               },
-            ),
-          ListState.error => Center(
+            );
+          case ListState.error:
+            return Center(
               child: Text(artistList?.message ?? ''),
-            ),
-          null => const SizedBox.shrink(),
-        };
+            );
+          default:
+            return const SizedBox.shrink();
+        }
+        // return switch (artistList?.artistListState) {
+        //   ListState.initial => const SizedBox.shrink(),
+        //   ListState.loading => const Center(
+        //       child: CircularProgressIndicator(),
+        //     ),
+        //   ListState.loaded => ListView.builder(
+        //       controller: _scrollController,
+        //       itemCount: artistList?.value?.length,
+        //       itemBuilder: (BuildContext context, int index) {
+        //         return Artist(
+        //           artistList: artistList!,
+        //           index: index,
+        //         );
+        //       },
+        //     ),
+        //   ListState.error => Center(
+        //       child: Text(artistList?.message ?? ''),
+        //     ),
+        //   null => const SizedBox.shrink(),
+        // };
       },
     );
   }

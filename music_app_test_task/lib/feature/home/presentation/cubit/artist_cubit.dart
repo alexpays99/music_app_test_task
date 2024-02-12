@@ -48,7 +48,7 @@ class ArtistCubit extends Cubit<ArtistState> {
         ),
       },
       (r) => {
-        newArtists.addAll(r),
+        newArtists += List.from(r),
         counter++,
         emit(
           state.copyWith(
@@ -62,40 +62,3 @@ class ArtistCubit extends Cubit<ArtistState> {
     );
   }
 }
-
-  // Future<void> fetchArtists() async {
-  //   final startIndex = counter++;
-  //   emit(
-  //     state.copyWith(
-  //       artistListStateModel: ArtistListStateModel(
-  //         value: null,
-  //         artistListState: ListState.loading,
-  //       ),
-  //     ),
-  //   );
-  //   final artists = await _loadArtistsUsecase(startIndex);
-  //   artists.fold(
-  //     (l) => {
-  //       emit(
-  //         state.copyWith(
-  //           artistListStateModel: ArtistListStateModel(
-  //             artistListState: ListState.error,
-  //             message: UIConstants.errorMessage,
-  //           ),
-  //         ),
-  //       ),
-  //     },
-  //     (r) => {
-  //       newArtists = List.from(r),
-  //       emit(
-  //         state.copyWith(
-  //           artistListStateModel: ArtistListStateModel(
-  //             value: newArtists,
-  //             artistListState: ListState.loaded,
-  //           ),
-  //         ),
-  //       ),
-  //     },
-  //   );
-  // }
-
