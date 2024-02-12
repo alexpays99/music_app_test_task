@@ -79,62 +79,7 @@ class _ArtistListState extends State<ArtistList> {
           default:
             return const SizedBox.shrink();
         }
-        // return switch (artistList?.artistListState) {
-        //   ListState.initial => const SizedBox.shrink(),
-        //   ListState.loading => const Center(
-        //       child: CircularProgressIndicator(),
-        //     ),
-        //   ListState.loaded => ListView.builder(
-        //       controller: _scrollController,
-        //       itemCount: artistList?.value?.length,
-        //       itemBuilder: (BuildContext context, int index) {
-        //         return Artist(
-        //           artistList: artistList!,
-        //           index: index,
-        //         );
-        //       },
-        //     ),
-        //   ListState.error => Center(
-        //       child: Text(artistList?.message ?? ''),
-        //     ),
-        //   null => const SizedBox.shrink(),
-        // };
       },
     );
   }
 }
-
-// class ArtistList extends StatelessWidget {
-//   const ArtistList({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     di.getIt<ArtistCubit>().fetchArtists();
-//     return BlocBuilder<ArtistCubit, ArtistState>(
-//       builder: (context, state) {
-//         final artistList = state.artistListStateModel;
-//         return switch (artistList?.artistListState) {
-//           ListState.initial => const SizedBox.shrink(),
-//           ListState.loading => const Center(
-//               child: CupertinoActivityIndicator(),
-//             ),
-//           ListState.loaded => ListView.builder(
-//               itemCount: artistList?.value?.length,
-//               itemBuilder: (BuildContext context, int index) {
-//                 return Artist(
-//                   artistList: artistList!,
-//                   index: index,
-//                 );
-//               },
-//             ),
-//           ListState.error => Center(
-//               child: Text(artistList?.message ?? ''),
-//             ),
-//           null => const SizedBox.shrink(),
-//         };
-//       },
-//     );
-//   }
-// }
