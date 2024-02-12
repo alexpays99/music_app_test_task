@@ -21,30 +21,4 @@ class Album with _$Album {
   }) = _Album;
 
   factory Album.fromJson(Map<String, dynamic> json) => _$AlbumFromJson(json);
-
-  // AlbumLocal toAlbumLocal(Album alboModel) => AlbumLocal(
-  //       id: alboModel.id,
-  //       title: title,
-  //       cover: cover,
-  //       coverSmall: coverSmall,
-  //       coverMedium: coverMedium,
-  //       coverBig: coverBig,
-  //       coverXl: coverXl,
-  //       md5Image: md5Image,
-  //       tracklist: tracklist,
-  //       type: type,
-  //     );
-
-  // AlbumEntity get entity => AlbumEntity(
-  //       id: id,
-  //       title: title,
-  //       cover: cover,
-  //       coverSmall: coverSmall,
-  //       coverMedium: coverMedium,
-  //       coverBig: coverBig,
-  //       coverXl: coverXl,
-  //       md5Image: md5Image,
-  //       tracklist: tracklist,
-  //       type: type,
-  //     );
 }

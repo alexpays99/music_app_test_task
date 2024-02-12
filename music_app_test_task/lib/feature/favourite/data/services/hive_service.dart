@@ -48,15 +48,6 @@ class HiveService {
     }
   }
 
-  // Future<void> delete(int trackId) async {
-  //   final box = await Hive.openBox(BoxName.tracks);
-  //   box.deleteAt(trackId);
-  //   final trackList = box.values.map((e) {
-  //     return e as FavouriteTrackModel;
-  //   }).toList();
-  //   logger.d('Amount of tracks in Box:${trackList.length}');
-  // }
-
   Future<void> delete(int trackId) async {
     final box = await Hive.openBox(BoxName.tracks);
     // Declare a variable to store the found key

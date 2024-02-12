@@ -17,11 +17,4 @@ class Artist with _$Artist {
   }) = _Artist;
 
   factory Artist.fromJson(Map<String, dynamic> json) => _$ArtistFromJson(json);
-
-  // ArtistLocal toArtistLocal(Artist alboModel) => ArtistLocal(
-  //       id: alboModel.id,
-  //       name: alboModel.name,
-  //       tracklist: alboModel.tracklist,
-  //       type: alboModel.type,
-  //     );
 }
