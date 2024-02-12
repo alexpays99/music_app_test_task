@@ -1,4 +1,4 @@
-# music_app_test_task
+# Run project commands sequencially
 
 `flutter pub run build_runner build --delete-conflicting-outputs`
 
