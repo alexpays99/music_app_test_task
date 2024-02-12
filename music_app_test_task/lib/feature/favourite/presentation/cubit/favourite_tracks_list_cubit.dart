@@ -20,22 +20,6 @@ class FavouriteTracksListCubit extends Cubit<FavouriteTracksListState> {
 
   final DeleteTrackFromFavouriteUseCase _deleteTrackFromFavourite;
 
-  // Future<void> loadFavouriteTracks() async {
-  //   try {
-  //     final savedRecipesListenable = _listenSavedRecipes.call();
-  //     emit(
-  //       state.copyWith(
-  //         savedRecipesListStateModel: RecipesListStateModel(
-  //           recipeListState: ListState.loaded,
-  //         ),
-  //         valueListenable: savedRecipesListenable,
-  //       ),
-  //     );
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
   Future<void> deleteTrackFromFavourite(int trackId) async {
     final result = await _deleteTrackFromFavourite.call(trackId);
 

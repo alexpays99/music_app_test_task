@@ -616,14 +616,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
-  responsive_sizer:
-    dependency: "direct main"
-    description:
-      name: responsive_sizer
-      sha256: ecc518f6f30faf28bdc15f94e13a6c53d38c1c202eec9b1d4c3d1843d143788e
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.3.0+1"
   rxdart:
     dependency: transitive
     description:

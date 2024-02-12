@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:music_app_test_task/feature/favourite/data/models/saved_track_model/album_local.dart';
 
 part 'album.freezed.dart';
 part 'album.g.dart';
