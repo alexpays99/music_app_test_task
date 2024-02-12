@@ -61,63 +61,57 @@ class _ArtistInfoPageState extends State<ArtistInfoPage> {
                       physics: const ScrollPhysics(),
                       itemCount: trackList?.trackListData?.length,
                       itemBuilder: (BuildContext context, int index) {
-                        final id =
-                            trackList?.trackListData?[index].id.toString();
-                        final title =
-                            trackList?.trackListData?[index].title.toString();
+                        final title = trackList
+                            ?.trackListData?[index].titleShort
+                            .toString();
                         final duration = trackList?.trackListData?[index]
                             .duration?.toMinutesRepresentation;
+                        final albumImage =
+                            trackList?.trackListData?[index].album?.coverMedium;
 
-                        return ListTile(
-                          leading: Text(
-                            id ?? '',
-                            style: const TextStyle(
-                              fontSize: 10,
-                            ),
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: ListTile(
+                                  leading: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: CachedNetworkImage(
+                                      imageUrl: albumImage!,
+                                      placeholder: (context, url) =>
+                                          const CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                      fit: BoxFit.cover,
+                                      height: MediaQuery.sizeOf(context).width *
+                                          0.12,
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.12,
+                                    ),
+                                  ),
+                                  title: Text(
+                                    title!.contains('(')
+                                        ? title.substring(0, title.indexOf('('))
+                                        : title,
+                                    maxLines: 2,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  subtitle: Text(duration ?? ''),
+                                  trailing: AddToFavouriteButton(
+                                    track: FavouriteTrackModel
+                                        .fromRemoteTrackModel(
+                                      trackList!.trackListData![index],
+                                    ),
+                                    index: index,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          title: Text(
-                            title ?? '',
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                          subtitle: Text(duration ?? ''),
-                          trailing: AddToFavouriteButton(
-                            track: FavouriteTrackModel.fromRemoteTrackModel(
-                              trackList!.trackListData![index],
-                            ),
-                            index: index,
-                          ),
-                          // IconButton(
-                          //   onPressed: () {
-                          //     // setState(() {
-                          //     //   _isFavourite = !_isFavourite;
-                          //     // });
-                          //     // final recipeModel =
-                          //     //     RecipeModel.fromUserEntity(widget.recipe);
-                          //     // if (_isFavourite) {
-                          //     //   getIt
-                          //     //       .get<AddRecipeToFavouriteProvider>()
-                          //     //       .call(recipeModel);
-                          //     // } else {
-                          //     //   getIt
-                          //     //       .get<DeleteRecipeFromFavouriteProvider>()
-                          //     //       .call(widget.index);
-                          //     // }
-                          //   },
-                          //   icon: const Icon(
-                          //     Icons.favorite_outline,
-                          //     color: AppColors.unselectedRecipeColor,
-                          //     size: UIConstants.addToFavouriteIconSize,
-                          //     // _isFavourite
-                          //     //     ? Icons.favorite
-                          //     //     : Icons.favorite_outline,
-                          //     // color: _isFavourite
-                          //     //     ? AppColors.selectedRecipeColor
-                          //     //     : AppColors.unselectedRecipeColor,
-                          //     // size: UIConstants.addToFavouriteIconSize,
-                          //   ),
-                          // ),
                         );
                       },
                     ),

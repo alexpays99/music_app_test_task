@@ -28,22 +28,4 @@ class FavouriteTrackModel with _$FavouriteTrackModel {
         duration: trackModel.duration,
         artistName: trackModel.artist?.name,
       );
-
-  // factory FavouriteTrackModel.fromHiveDatabase(dynamic trackModel) =>
-  //     FavouriteTrackModel(
-  //       id: trackModel.id,
-  //       title: trackModel.title,
-  //       duration: trackModel.duration,
-  //       artistName: trackModel.artist?.name,
-  //     );
-
-  // SavedTrackEntity get entity => SavedTrackEntity(
-  //       id: id,
-  //       title: title,
-  //       titleShort: titleShort,
-  //       duration: duration,
-  //       md5Image: md5Image,
-  //       artist: artist,
-  //       album: album?.entity,
-  //     );
 }

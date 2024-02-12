@@ -3,7 +3,7 @@ import 'package:music_app_test_task/utils/ext.dart';
 
 import '../../data/models/favourite_track_model.dart';
 
-class FavouriteTrackWidget extends StatelessWidget {
+class FavouriteTrackWidget extends StatefulWidget {
   const FavouriteTrackWidget({
     super.key,
     this.index = 0,
@@ -16,9 +16,14 @@ class FavouriteTrackWidget extends StatelessWidget {
   final void Function() onPress;
 
   @override
+  State<FavouriteTrackWidget> createState() => _FavouriteTrackWidgetState();
+}
+
+class _FavouriteTrackWidgetState extends State<FavouriteTrackWidget> {
+  @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ValueKey(index),
+      key: UniqueKey(),
       background: Container(
         color: Colors.red,
         child: const Center(
@@ -27,7 +32,10 @@ class FavouriteTrackWidget extends StatelessWidget {
       ),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
-        onPress();
+        if (direction == DismissDirection.endToStart) {
+          widget.onPress();
+          setState(() {});
+        }
       },
       child: Container(
         padding: const EdgeInsets.all(8.0),
@@ -50,7 +58,7 @@ class FavouriteTrackWidget extends StatelessWidget {
             CircleAvatar(
               backgroundColor: Colors.blue,
               child: Text(
-                '${track.artistName?.toInitialsRepresentation}',
+                '${widget.track.artistName?.toInitialsRepresentation}',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16.0,
@@ -63,14 +71,14 @@ class FavouriteTrackWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${track.title}',
+                    '${widget.track.title}',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
                     ),
                   ),
                   Text(
-                    '${track.artistName}',
+                    '${widget.track.artistName}',
                     style: const TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 14.0,
@@ -81,7 +89,7 @@ class FavouriteTrackWidget extends StatelessWidget {
             ),
             const SizedBox(width: 16.0),
             Text(
-              '${track.duration?.toMinutesRepresentation}',
+              '${widget.track.duration?.toMinutesRepresentation}',
               style: const TextStyle(
                 fontWeight: FontWeight.normal,
                 fontSize: 14.0,
