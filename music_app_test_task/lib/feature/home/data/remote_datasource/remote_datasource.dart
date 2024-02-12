@@ -6,7 +6,8 @@ import '../models/artist_list_track/datum.dart';
 import '../services/http_service.dart';
 
 abstract class RemoteDataSource {
-  Future<Either<Failure, List<ArtistBaseInfoEntity>>> fetchArtists();
+  Future<Either<Failure, List<ArtistBaseInfoEntity>>> fetchArtists(
+      int startIndex);
   Future<Either<Failure, List<Datum>>> fetchArtistTrackList(
       {required String url});
 }
@@ -17,8 +18,9 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   final HttpService httpService;
 
   @override
-  Future<Either<Failure, List<ArtistBaseInfoEntity>>> fetchArtists() async {
-    return await httpService.fetchArtists();
+  Future<Either<Failure, List<ArtistBaseInfoEntity>>> fetchArtists(
+      startIndex) async {
+    return await httpService.fetchArtists(startIndex);
   }
 
   @override

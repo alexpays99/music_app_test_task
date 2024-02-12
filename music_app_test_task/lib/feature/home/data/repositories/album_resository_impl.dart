@@ -12,8 +12,9 @@ class AlbumRepositoryImpl implements AlbumRepository {
   final RemoteDataSource _remoteDataSource;
 
   @override
-  Future<Either<Failure, List<ArtistBaseInfoEntity>>> fetchArtists() async {
-    return await _remoteDataSource.fetchArtists();
+  Future<Either<Failure, List<ArtistBaseInfoEntity>>> fetchArtists(
+      int startIndex) async {
+    return await _remoteDataSource.fetchArtists(startIndex);
   }
 
   @override

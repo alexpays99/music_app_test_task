@@ -23,8 +23,10 @@ class ArtistCubit extends Cubit<ArtistState> {
 
   final LoadArtistsUseCase _loadArtistsUsecase;
   List<ArtistBaseInfoEntity> newArtists = [];
+  int counter = 1;
 
   Future<void> fetchArtists() async {
+    final startIndex = counter * 10;
     emit(
       state.copyWith(
         artistListStateModel: ArtistListStateModel(
@@ -33,7 +35,7 @@ class ArtistCubit extends Cubit<ArtistState> {
         ),
       ),
     );
-    final artists = await _loadArtistsUsecase();
+    final artists = await _loadArtistsUsecase(startIndex);
     artists.fold(
       (l) => {
         emit(
@@ -46,7 +48,8 @@ class ArtistCubit extends Cubit<ArtistState> {
         ),
       },
       (r) => {
-        newArtists = List.from(r),
+        newArtists.addAll(r),
+        counter++,
         emit(
           state.copyWith(
             artistListStateModel: ArtistListStateModel(
@@ -59,3 +62,40 @@ class ArtistCubit extends Cubit<ArtistState> {
     );
   }
 }
+
+  // Future<void> fetchArtists() async {
+  //   final startIndex = counter++;
+  //   emit(
+  //     state.copyWith(
+  //       artistListStateModel: ArtistListStateModel(
+  //         value: null,
+  //         artistListState: ListState.loading,
+  //       ),
+  //     ),
+  //   );
+  //   final artists = await _loadArtistsUsecase(startIndex);
+  //   artists.fold(
+  //     (l) => {
+  //       emit(
+  //         state.copyWith(
+  //           artistListStateModel: ArtistListStateModel(
+  //             artistListState: ListState.error,
+  //             message: UIConstants.errorMessage,
+  //           ),
+  //         ),
+  //       ),
+  //     },
+  //     (r) => {
+  //       newArtists = List.from(r),
+  //       emit(
+  //         state.copyWith(
+  //           artistListStateModel: ArtistListStateModel(
+  //             value: newArtists,
+  //             artistListState: ListState.loaded,
+  //           ),
+  //         ),
+  //       ),
+  //     },
+  //   );
+  // }
+
