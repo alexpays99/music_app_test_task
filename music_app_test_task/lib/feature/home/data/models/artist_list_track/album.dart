@@ -1,11 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:music_app_test_task/feature/favourite/data/models/saved_track_model/album_local.dart';
 
 part 'album.freezed.dart';
 part 'album.g.dart';
 
 @freezed
 class Album with _$Album {
-  factory Album({
+  const Album._();
+  const factory Album({
     int? id,
     String? title,
     String? cover,
@@ -19,4 +21,30 @@ class Album with _$Album {
   }) = _Album;
 
   factory Album.fromJson(Map<String, dynamic> json) => _$AlbumFromJson(json);
+
+  // AlbumLocal toAlbumLocal(Album alboModel) => AlbumLocal(
+  //       id: alboModel.id,
+  //       title: title,
+  //       cover: cover,
+  //       coverSmall: coverSmall,
+  //       coverMedium: coverMedium,
+  //       coverBig: coverBig,
+  //       coverXl: coverXl,
+  //       md5Image: md5Image,
+  //       tracklist: tracklist,
+  //       type: type,
+  //     );
+
+  // AlbumEntity get entity => AlbumEntity(
+  //       id: id,
+  //       title: title,
+  //       cover: cover,
+  //       coverSmall: coverSmall,
+  //       coverMedium: coverMedium,
+  //       coverBig: coverBig,
+  //       coverXl: coverXl,
+  //       md5Image: md5Image,
+  //       tracklist: tracklist,
+  //       type: type,
+  //     );
 }

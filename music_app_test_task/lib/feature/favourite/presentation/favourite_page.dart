@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../navigation/router_paths.dart';
+import 'widgets/favourite_tracks_list.dart';
 
 class FavouritePage extends StatelessWidget {
   const FavouritePage({super.key});
@@ -19,6 +20,7 @@ class FavouritePage extends StatelessWidget {
           tooltip: '',
         ),
       ),
+      body: const FavouriteTracksList(),
     );
   }
 }

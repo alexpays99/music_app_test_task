@@ -22,7 +22,6 @@ class ArtistCubit extends Cubit<ArtistState> {
         );
 
   final LoadArtistsUseCase _loadArtistsUsecase;
-
   List<ArtistBaseInfoEntity> newArtists = [];
 
   Future<void> fetchArtists() async {
@@ -51,7 +50,7 @@ class ArtistCubit extends Cubit<ArtistState> {
         emit(
           state.copyWith(
             artistListStateModel: ArtistListStateModel(
-              value: newArtists, //r,
+              value: newArtists,
               artistListState: ListState.loaded,
             ),
           ),

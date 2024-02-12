@@ -7,3 +7,14 @@ extension IntExtension on int {
     return "$minutes:$secondsString min";
   }
 }
+
+extension StringExtension on String {
+  String get toInitialsRepresentation {
+    List<String> words = this.split(" ");
+    String initials = "";
+    for (var word in words) {
+      initials += word[0];
+    }
+    return initials;
+  }
+}

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:music_app_test_task/feature/home/data/models/artist_list_track/datum.dart';
 
 import '../../../../core/injector.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/ui_constants.dart';
-import '../../domain/use_cases/add_song_to_favourite.dart';
+import '../../../favourite/data/models/favourite_track_model.dart';
+import '../../../favourite/domain/use_cases/add_song_to_favourite.dart';
+import '../../../favourite/domain/use_cases/delete_song_from_favourite.dart';
 
 class AddToFavouriteButton extends StatefulWidget {
   const AddToFavouriteButton({
@@ -13,7 +14,7 @@ class AddToFavouriteButton extends StatefulWidget {
     required this.index,
   });
 
-  final Datum track;
+  final FavouriteTrackModel track;
   final int index;
 
   @override
@@ -30,10 +31,11 @@ class _AddToFavouriteButtonState extends State<AddToFavouriteButton> {
         setState(() {
           _isFavourite = !_isFavourite;
         });
+        final selectedTrack = widget.track.copyWith(isFavourite: _isFavourite);
         if (_isFavourite) {
-          getIt.get<AddSongToFavouriteUseCase>().call(widget.track);
+          getIt.get<AddSongToFavouriteUseCase>().call(selectedTrack);
         } else {
-          // getIt.get<DeleteRecipeFromFavouriteProvider>().call(widget.index);
+          getIt.get<DeleteTrackFromFavouriteUseCase>().call(widget.index);
         }
       },
       icon: Icon(

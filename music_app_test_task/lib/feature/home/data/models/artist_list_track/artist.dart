@@ -1,11 +1,15 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../favourite/data/models/saved_track_model/artist_local.dart';
+
 part 'artist.freezed.dart';
 part 'artist.g.dart';
 
 @freezed
 class Artist with _$Artist {
-  factory Artist({
+  const Artist._();
+
+  const factory Artist({
     int? id,
     String? name,
     String? tracklist,
@@ -13,4 +17,11 @@ class Artist with _$Artist {
   }) = _Artist;
 
   factory Artist.fromJson(Map<String, dynamic> json) => _$ArtistFromJson(json);
+
+  // ArtistLocal toArtistLocal(Artist alboModel) => ArtistLocal(
+  //       id: alboModel.id,
+  //       name: alboModel.name,
+  //       tracklist: alboModel.tracklist,
+  //       type: alboModel.type,
+  //     );
 }
